@@ -81,13 +81,15 @@ class FaceCV(object):
         face_cascade = cv2.CascadeClassifier(self.CASE_PATH)
 
         # 0 means the default video capture device in OS
+        #video_capture = cv2.imread(".\\imgs\\jy.jpg",1)
         video_capture = cv2.VideoCapture(0)
         # infinite loop, break by key ESC
         while True:
-            if not video_capture.isOpened():
-                sleep(5)
+           # if not video_capture.isOpened():
+            #    sleep(5)
             # Capture frame-by-frame
-            ret, frame = video_capture.read()
+            #frame = video_capture
+            ret, frame = video_capture.read();
             gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
             faces = face_cascade.detectMultiScale(
                 gray,
@@ -119,7 +121,7 @@ class FaceCV(object):
                     print(int(predicted_ages[i]), predicted_genders[i][0])
                     if predicted_genders[i][0] < 0.5 and (
                             (int(predicted_ages[i]) > 25) and (int(predicted_ages[i]) < 30)):
-                        print("Hello")
+                        print("Face found")
                         filename = random.choice(os.listdir("25-30/"))
                         cap = cv2.VideoCapture("25-30/" + filename)
 
@@ -188,7 +190,7 @@ class FaceCV(object):
             else:
                 print('No faces')
 
-            cv2.imshow('Camera', frame)
+            cv2.imshow('Keras Resnet', frame)
             if cv2.waitKey(5) == 27:  # ESC key press
                 break
         # When everything is done, release the capture
